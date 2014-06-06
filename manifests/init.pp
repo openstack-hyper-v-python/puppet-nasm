@@ -14,12 +14,17 @@ class nasm (
     windows_7zip::extract_file{'nasm':
         file        => "${nasmpath}\\${package}-${version}.zip",
         destination => $nasmpath,
-        before      => windows_path['nasm'],
+        before      => [exec['rename-nasm'], windows_path['nasm']],
         subscribe   => Windows_common::Remote_file["nasm"],
+    }
+    
+    exec{'rename-nasm':
+        command     => "rename ${nasmpath}\\nasm.exe nasmw.exe",
+        require     => Windows_7zip::Extract_file['nasm'],
     }
     
     windows_path{ $nasmpath:
         ensure      => present,
-        require     Windows_7zip::Extract_file['nasm'],
+        require     => Windows_7zip::Extract_file['nasm'],
     }
 }
