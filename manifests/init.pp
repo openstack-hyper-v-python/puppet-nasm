@@ -1,8 +1,8 @@
 class nasm (
-    $version     = $swig::params::version,
-    $url         = $swig::params::url,
-    $package     = $swig::params:package,
-    $nasmpath    = $swig::params::nasmpath,
+    $version     = $nasm::params::version,
+    $url         = $nasm::params::url,
+    $package     = $nasm::params:package,
+    $nasmpath    = $nasm::params::nasmpath,
 ) inherits nasm::params {
     windows_common::remote_file{"nasm":
         source      => "${url}",
